@@ -19,11 +19,16 @@ class AuthController < ApplicationController
     if @user.authenticate(user_params[:password])
       # Generate and store jwt token
       token = encode_token(user_id: @user.id)
-      user_token = UserToken.create!(token: token, users_id: @user.id)
-      user_token.save
 
-      # response
-      render json: { user: @user, token: token }
+      if token
+        user_token = UserToken.create!(token: token, users_id: @user.id)
+        user_token.save
+
+        # response
+        render json: { user: @user, token: token }
+      else
+        render json: { message: 'Please login again' }, status: :unauthorized
+      end
     else
       render json: { message: 'Invalid email or password' }, status: :unauthorized
     end
