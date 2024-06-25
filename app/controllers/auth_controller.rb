@@ -21,7 +21,7 @@ class AuthController < ApplicationController
       token = encode_token(user_id: @user.id)
 
       if token
-        user_token = UserToken.create!(token: token, users_id: @user.id)
+        user_token = UserToken.create!(token: token, user_id: @user.id)
         user_token.save
 
         # response

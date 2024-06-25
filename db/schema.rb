@@ -18,8 +18,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_24_153351) do
     t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "users_id", null: false
-    t.index ["users_id"], name: "index_user_tokens_on_users_id"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_user_tokens_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -31,5 +31,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_24_153351) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "user_tokens", "users", column: "users_id"
+  add_foreign_key "user_tokens", "users"
 end
