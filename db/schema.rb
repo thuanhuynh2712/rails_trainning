@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_24_153351) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_25_113222) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "jobs", force: :cascade do |t|
+    t.integer "status"
+    t.string "title"
+    t.string "published_date"
+    t.string "share_link"
+    t.integer "salary_from"
+    t.integer "salary_to"
+    t.bigint "created_by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_by_id"], name: "index_jobs_on_created_by_id"
+  end
 
   create_table "user_tokens", force: :cascade do |t|
     t.string "token"
@@ -31,5 +44,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_24_153351) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "jobs", "users", column: "created_by_id"
   add_foreign_key "user_tokens", "users"
 end
